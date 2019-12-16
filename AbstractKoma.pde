@@ -22,25 +22,11 @@ abstract class AbstractKoma {
     PImage img = loadImage(komaImage);
     image(img, SQUARESIZE*this.x+2, this.y*SQUARESIZE+2, SQUARESIZE-4, SQUARESIZE-4);
 
-  }
-  
-  AbstractKoma getSelectedKoma() {
-    for (AbstractKoma k : komaArray) {
-      if (k.kStat.selected) return k;
-    }
-    return null;
+    if (this.kStat.selected) this.drawSelected();
   }
 
-  void select(int x, int y) {
-    AbstractKoma koma = this.getKomaFromPlaceByTeam(x, y, gs.turn);
-    if (koma != null) koma.kStat.selected=true;
+  void drawSelected() {
+    fill(#FF0000, SQUARESIZE);
+    rect(this.x*SQUARESIZE, this.y*SQUARESIZE, SQUARESIZE, SQUARESIZE);
   }
-
-  AbstractKoma getKomaFromPlaceByTeam(int x, int y, int team) {
-    for (AbstractKoma k : this.komaArray) {
-      if (team==k.team && x == k.x && y == k.y && k.kStat.active) return k;
-    }
-    return null;
-  }
-
 }
